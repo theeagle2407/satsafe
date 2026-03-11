@@ -4,6 +4,8 @@
 
 SatSafe is a privacy-first savings vault on Starknet that lets users create locked savings goals, deposit STRK tokens, and track real STARK proof verification status for every transaction.
 
+# Live demo
+https://satsafe.vercel.app/
 ---
 
 ## Key Features
