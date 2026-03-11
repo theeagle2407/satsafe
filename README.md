@@ -88,8 +88,9 @@ Built for **PL Genesis Hackathon 2026** — Starknet Bounty Track
 
 | Name | Role |
 |------|------|
-| [Eagle] | Full Stack Developer |
-
+| Eagle | Full Stack Developer |
+X:@theeagle2407
+Email: elijahoreoluwa45@gmail.com
 ---
 
 ## License
