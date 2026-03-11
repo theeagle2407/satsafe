@@ -1,36 +1,97 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SatSafe — Private Bitcoin Savings Vault on Starknet
 
-## Getting Started
+> Save privately. Earn silently. Own completely.
 
-First, run the development server:
+SatSafe is a privacy-first savings vault on Starknet that lets users create locked savings goals, deposit STRK tokens, and track real STARK proof verification status for every transaction.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## Key Features
+
+- **Private Savings Vaults** — Create named savings goals with lock periods (1 month to 1 year)
+- **Real STRK Transactions** — Every vault deposit is a real on-chain transaction on Starknet Sepolia testnet
+- **STARK Proof Tracking** — Live verification status for every transaction (Executed → Proved on L2 → Proved on L1)
+- **Add Funds** — Top up any existing vault at any time
+- **ZK-Shielded Balances** — Balances are hidden by default and only revealed on request
+- **Wallet Support** — ArgentX, Braavos, and OKX wallets
+
+---
+
+## How Privacy Is Improved
+
+Starknet is a ZK-rollup — every transaction submitted on Starknet is verified by a STARK proof before being settled on Ethereum L1. This means:
+
+- Transactions are proven mathematically without revealing private state
+- No trusted third party is needed to verify correctness
+- Every SatSafe vault deposit goes through Starknet's STARK prover pipeline: `EXECUTED → ACCEPTED_ON_L2 (STARK proof generated) → ACCEPTED_ON_L1 (settled on Ethereum)`
+
+SatSafe surfaces this proof pipeline in real time on every vault card, showing users exactly where their transaction sits in the ZK verification process.
+
+---
+
+## Architecture
+
+```
+User → Connect Starknet Wallet (ArgentX / Braavos / OKX)
+     → Create Vault (name + amount + lock period)
+     → STRK transfer transaction sent to Starknet Sepolia
+     → Transaction hash stored in localStorage per wallet address
+     → /api/proof fetches live STARK proof status from Starknet RPC
+     → /api/balance fetches live STRK balance from Starknet RPC
+     → Vault balances and proof status displayed in real time
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Dependencies
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Next.js 15
+- TypeScript
+- Tailwind CSS
+- starknet
+- @starknet-react/core
+- @starknet-react/chains
+- @tanstack/react-query
+- wagmi
+- viem
+- lucide-react
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## Running the Project
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Prerequisites
+- Node.js 18+
+- ArgentX, Braavos, or OKX wallet browser extension
+- Starknet Sepolia testnet STRK tokens (free from faucet.starknet.io)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Setup
 
-## Deploy on Vercel
+```bash
+git clone https://github.com/theeagle2407/satsafe.git
+cd satsafe
+npm install --legacy-peer-deps
+npm run dev
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Open http://localhost:3000
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Environment Variables
+
+No environment variables required. All RPC calls use public Starknet Sepolia endpoints.
+
+---
+
+## Team
+
+Built for **PL Genesis Hackathon 2026** — Starknet Bounty Track
+
+| Name | Role |
+|------|------|
+| [Eagle] | Full Stack Developer |
+
+---
+
+## License
+
+MIT
